@@ -37,24 +37,22 @@ public class ConverterDownloadPage extends ConverterPage {
                 // Cambiar el enfoque a la segunda pestaña
                 ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
                 if (tabs.size() > 1) {
-                    System.out.println("Entra: " + tabs.size());
                     driver.switchTo().window(tabs.get(1));
                     driver.close();
 
                     driver.switchTo().window(tabs.get(0));
-                    System.out.println("Sale: " + tabs.size());
                 }
 
-                Logger.getLogger(ConverterDownloadPage.class.getName()).log(Logger.Level.INFO, "Video downloaded!");
+                Logger.getLogger(ConverterDownloadPage.class.getName()).log(Logger.Level.INFO, "Downloaded!");
                 waitABit.accept(driver);
             } catch (Exception ex) {
-                Logger.getLogger(ConverterDownloadPage.class.getName()).log(Logger.Level.WARN, "Error downloading video");
+                Logger.getLogger(ConverterDownloadPage.class.getName()).log(Logger.Level.WARN, "Error downloading...");
                 if (!driver.getCurrentUrl().contains("tomp3")) {
                     driver.navigate().back();
                 }
             }
         } else {
-            Logger.getLogger(ConverterDownloadPage.class.getName()).log(Logger.Level.ERROR, "Download button not found");
+            Logger.getLogger(ConverterDownloadPage.class.getName()).log(Logger.Level.ERROR, "Error converting. Download button not found...");
         }
     }
 }

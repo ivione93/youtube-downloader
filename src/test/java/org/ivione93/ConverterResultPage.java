@@ -49,7 +49,7 @@ public class ConverterResultPage extends ConverterPage {
 
                 downloadPage = PageFactory.initElements(driver, ConverterDownloadPage.class);
             } catch (Exception ex) {
-                Logger.getLogger(ConverterResultPage.class.getName()).log(Logger.Level.ERROR, "Error converting video");
+                Logger.getLogger(ConverterResultPage.class.getName()).log(Logger.Level.ERROR, "Error converting video...");
             }
         }
         

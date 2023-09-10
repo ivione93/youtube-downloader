@@ -23,7 +23,7 @@ public class ConverterFindPage extends ConverterPage {
         super(driver);
     }
 
-    public ConverterResultPage findLink(String url)  {
+    public ConverterResultPage findLink(String url) throws InterruptedException {
         Logger.getLogger(ConverterFindPage.class.getName()).log(Logger.Level.INFO, "=================");
         Logger.getLogger(ConverterFindPage.class.getName()).log(Logger.Level.INFO, "============ FIND");
         Logger.getLogger(ConverterFindPage.class.getName()).log(Logger.Level.INFO, "Searching for: {0}", new String[]{url});
@@ -43,6 +43,8 @@ public class ConverterFindPage extends ConverterPage {
                 ExpectedConditions.elementToBeClickable(startButtonById)
         ));
         startButton.click();
+        Logger.getLogger(ConverterResultPage.class.getName()).log(Logger.Level.INFO, "(Searching) Wait 2 seconds");
+        Thread.sleep(2000);
 
         waitABit.accept(driver);
 

@@ -10,7 +10,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import java.util.Map;
 public class YoutubeDownloaderTest {
 
     // ENLACE DEL ALBUM DE YOUTUBE
-    private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=7tKc8zqYuNY&list=OLAK5uy_mrutO_7pM_CaHKhI54Bq-19_PYZEko_HE";
+    private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=saTdnLRaFD4&list=OLAK5uy_kgQr0OCBXq1OewNU_u_9TSJL2TvJndQpA";
 
     private static final String CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     private static final String CHROME_DRIVER_LOCATION = "src/resources/chromedriver.exe";
@@ -57,36 +56,39 @@ public class YoutubeDownloaderTest {
         final WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
-        List<String> songUrls = new ArrayList<>();
+        List<String> songUrls;
+        YoutubePage youtubePage = PageFactory.initElements(driver, YoutubePage.class);
 
         try {
-            songUrls = getSongLinks(driver);
+            songUrls = getSongLinks(youtubePage);
+
+            driver.manage().window().maximize();
+            driver.get(CONVERTER_URL);
+
+            ConverterFindPage findPage = PageFactory.initElements(driver, ConverterFindPage.class);
+            for (String songUrl : songUrls) {
+                findPage
+                        .findLink(songUrl)
+                        .convertVideo()
+                        .downloadVideo();
+            }
+
+            Logger.getLogger(YoutubeDownloaderTest.class.getName()).log(Logger.Level.INFO, "Full album downloaded!");
+
+            youtubePage.moveFiles();
+            driver.quit();
         } catch (Exception ex) {
-            Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.ERROR, "Something wrong. Try again!");
+            Logger.getLogger(YoutubeDownloaderTest.class.getName()).log(Logger.Level.ERROR, "Something wrong... Try again!");
+            driver.quit();
         }
-
-        driver.manage().window().maximize();
-        driver.get(CONVERTER_URL);
-
-        ConverterFindPage findPage = PageFactory.initElements(driver, ConverterFindPage.class);
-        for (String songUrl : songUrls) {
-            findPage
-                    .findLink(songUrl)
-                    .convertVideo()
-                    .downloadVideo();
-        }
-
-        Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "Full album downloaded!");
-        driver.quit();
     }
 
-    private List<String> getSongLinks(WebDriver driver) {
-        YoutubePage youtubePage = PageFactory.initElements(driver, YoutubePage.class);
+    private List<String> getSongLinks(YoutubePage youtubePage) {
         List<String> songUrls = youtubePage.getUrl(YOUTUBE_URL);
-        Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "Song links:");
-        for (String songUrl : songUrls) {
+        Logger.getLogger(YoutubeDownloaderTest.class.getName()).log(Logger.Level.INFO, "Total album songs: " + songUrls.size());
+        /*for (String songUrl : songUrls) {
             System.out.println(songUrl);
-        }
+        }*/
         return songUrls;
     }
 
