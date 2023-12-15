@@ -79,9 +79,6 @@ public class YoutubePage extends ConverterPage {
                                 destinationPath = Paths.get(destinationFolder, newName);
                             }
                             Files.move(file, destinationPath);
-                            Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "************************");
-                            Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "*** ENJOY THE ALBUM! ***");
-                            Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "************************");
                         } catch (IOException e) {
                             Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.ERROR, "Error moving file...");
                         }
@@ -89,5 +86,8 @@ public class YoutubePage extends ConverterPage {
         } catch (IOException e) {
             Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.ERROR, "Error getting files...");
         }
+        Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "************************");
+        Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "*** ENJOY THE ALBUM! ***");
+        Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "************************");
     }
 }

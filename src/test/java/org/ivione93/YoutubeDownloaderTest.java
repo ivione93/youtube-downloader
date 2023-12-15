@@ -18,7 +18,7 @@ import java.util.Map;
 public class YoutubeDownloaderTest {
 
     // ENLACE DEL ALBUM DE YOUTUBE
-    private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=saTdnLRaFD4&list=OLAK5uy_kgQr0OCBXq1OewNU_u_9TSJL2TvJndQpA";
+    private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=0sCGba0KoU4&list=OLAK5uy_nB9dhDdH92Ch2Ujeer72Gnl9F3Vx5LIaI";
 
     private static final String CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     private static final String CHROME_DRIVER_LOCATION = "src/resources/chromedriver.exe";

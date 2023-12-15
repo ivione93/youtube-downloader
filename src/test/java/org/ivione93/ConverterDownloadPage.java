@@ -31,8 +31,8 @@ public class ConverterDownloadPage extends ConverterPage {
                         ExpectedConditions.elementToBeClickable(downloadButtonById)
                 ));
                 downloadButton.click();
-                Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "(Downloading) Wait 5 seconds");
-                Thread.sleep(5000);
+                //Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "(Downloading) Wait 5 seconds");
+                //Thread.sleep(5000);
 
                 // Cambiar el enfoque a la segunda pestaña
                 ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());

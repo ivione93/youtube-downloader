@@ -42,8 +42,8 @@ public class ConverterResultPage extends ConverterPage {
                         ExpectedConditions.elementToBeClickable(convertButtonById)
                 ));
                 convertButton.click();
-                Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "(Converting) Wait 7 seconds");
-                Thread.sleep(7000);
+                //Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.INFO, "(Converting) Wait 7 seconds");
+                //Thread.sleep(7000);
 
                 waitABit.accept(driver);
 

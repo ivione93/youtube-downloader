@@ -43,8 +43,8 @@ public class ConverterFindPage extends ConverterPage {
                 ExpectedConditions.elementToBeClickable(startButtonById)
         ));
         startButton.click();
-        Logger.getLogger(ConverterResultPage.class.getName()).log(Logger.Level.INFO, "(Searching) Wait 2 seconds");
-        Thread.sleep(2000);
+        //Logger.getLogger(ConverterResultPage.class.getName()).log(Logger.Level.INFO, "(Searching) Wait 2 seconds");
+        //Thread.sleep(2000);
 
         waitABit.accept(driver);
 
