@@ -18,19 +18,20 @@ import java.util.Map;
 public class YoutubeDownloaderTest {
 
     // ENLACE DEL ALBUM DE YOUTUBE
-    private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=0sCGba0KoU4&list=OLAK5uy_nB9dhDdH92Ch2Ujeer72Gnl9F3Vx5LIaI";
+    private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=-byTiKtOrH4&list=OLAK5uy_mTxPrMIuyPxSCA4v7WbiV_GOW4isrFg9E";
 
     private static final String CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     private static final String CHROME_DRIVER_LOCATION = "src/resources/chromedriver.exe";
     private static final String BRAVE_LOCATION = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe";
-    private static final String CONVERTER_URL = "https://tomp3.cc/est58gv";
+    private static final String CHROME_LOCATION = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+    private static final String CONVERTER_URL = "https://y2mate.nu/Gmgx";
 
     private static final String DOWNLOAD_BASE = System.getProperty("user.home");
     private static final String DOWNLOAD_LOCATION_SUFFIX = File.separator + "Downloads";
     private static final String DOWNLOAD_LOCATION = DOWNLOAD_BASE + DOWNLOAD_LOCATION_SUFFIX;
 
     @Test
-    public void testSelenium() {
+    public void youtubeDownloader() {
         System.setProperty(CHROME_DRIVER_KEY, CHROME_DRIVER_LOCATION);
 
         Map<String, Object> prefs = new HashMap<>();
@@ -38,7 +39,7 @@ public class YoutubeDownloaderTest {
         prefs.put("download.default_directory", DOWNLOAD_LOCATION);
         prefs.put("download.prompt_from_download", false);
 
-        final ChromeOptions options = new ChromeOptions().setBinary(BRAVE_LOCATION);
+        final ChromeOptions options = new ChromeOptions().setBinary(CHROME_LOCATION);
         options.setExperimentalOption("prefs", prefs);
         options.addArguments(
                 "--start-maximized",
@@ -69,8 +70,7 @@ public class YoutubeDownloaderTest {
             for (String songUrl : songUrls) {
                 findPage
                         .findLink(songUrl)
-                        .convertVideo()
-                        .downloadVideo();
+                        .downloadSong();
             }
 
             Logger.getLogger(YoutubeDownloaderTest.class.getName()).log(Logger.Level.INFO, "Full album downloaded!");

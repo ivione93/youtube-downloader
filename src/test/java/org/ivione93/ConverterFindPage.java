@@ -11,19 +11,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ConverterFindPage extends ConverterPage {
 
-    static By youtubeLinkValueById = By.id("k__input");
-    @FindBy(how = How.ID, using = "k__input")
+    static By youtubeLinkValueById = By.id("url");
+    @FindBy(how = How.ID, using = "url")
     WebElement youtubeLinkValue;
 
-    static By startButtonById = By.id("btn-start");
-    @FindBy(how = How.ID, using = "btn-start")
-    WebElement startButton;
+    static By convertButtonById = By.xpath("/html/body/form/div[2]/input[2]");
+    @FindBy(how = How.XPATH, using = "/html/body/form/div[2]/input[2]")
+    WebElement convertButton;
 
     public ConverterFindPage(WebDriver driver) {
         super(driver);
     }
 
-    public ConverterResultPage findLink(String url) throws InterruptedException {
+    public DownloadPage findLink(String url) {
         Logger.getLogger(ConverterFindPage.class.getName()).log(Logger.Level.INFO, "=================");
         Logger.getLogger(ConverterFindPage.class.getName()).log(Logger.Level.INFO, "============ FIND");
         Logger.getLogger(ConverterFindPage.class.getName()).log(Logger.Level.INFO, "Searching for: {0}", new String[]{url});
@@ -38,16 +38,14 @@ public class ConverterFindPage extends ConverterPage {
         youtubeLinkValue.sendKeys(url);
 
         wait.until(ExpectedConditions.and(
-                ExpectedConditions.presenceOfElementLocated(startButtonById),
-                ExpectedConditions.visibilityOfElementLocated(startButtonById),
-                ExpectedConditions.elementToBeClickable(startButtonById)
+                ExpectedConditions.presenceOfElementLocated(convertButtonById),
+                ExpectedConditions.visibilityOfElementLocated(convertButtonById),
+                ExpectedConditions.elementToBeClickable(convertButtonById)
         ));
-        startButton.click();
-        //Logger.getLogger(ConverterResultPage.class.getName()).log(Logger.Level.INFO, "(Searching) Wait 2 seconds");
-        //Thread.sleep(2000);
+        convertButton.click();
 
         waitABit.accept(driver);
 
-        return PageFactory.initElements(driver, ConverterResultPage.class);
+        return PageFactory.initElements(driver, DownloadPage.class);
     }
 }
