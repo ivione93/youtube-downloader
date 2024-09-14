@@ -1,8 +1,6 @@
 package org.ivione93;
 
-import io.quarkus.test.junit.QuarkusTest;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,8 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@QuarkusTest
-public class YoutubeDownloaderTest {
+public class YoutubeDownloader {
 
     // ENLACE DEL ALBUM DE YOUTUBE
     private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=t1TDvy7djJg&list=OLAK5uy_nn3A5Fk-4Dh6v9OA6wBt4t_sLLorrjdsI";
@@ -30,8 +27,7 @@ public class YoutubeDownloaderTest {
     private static final String DOWNLOAD_LOCATION_SUFFIX = File.separator + "Downloads";
     private static final String DOWNLOAD_LOCATION = DOWNLOAD_BASE + DOWNLOAD_LOCATION_SUFFIX;
 
-    @Test
-    public void youtubeDownloader() {
+    public void youtubeDownloader(String url) {
         System.setProperty(CHROME_DRIVER_KEY, CHROME_DRIVER_LOCATION);
 
         Map<String, Object> prefs = new HashMap<>();
@@ -61,7 +57,7 @@ public class YoutubeDownloaderTest {
         YoutubePage youtubePage = PageFactory.initElements(driver, YoutubePage.class);
 
         try {
-            songUrls = getSongLinks(youtubePage);
+            songUrls = getSongLinks(youtubePage, url);
 
             driver.manage().window().maximize();
             driver.get(CONVERTER_URL);
@@ -73,19 +69,19 @@ public class YoutubeDownloaderTest {
                         .downloadSong();
             }
 
-            Logger.getLogger(YoutubeDownloaderTest.class.getName()).log(Logger.Level.INFO, "Full album downloaded!");
+            Logger.getLogger(YoutubeDownloader.class.getName()).log(Logger.Level.INFO, "Full album downloaded!");
 
             youtubePage.moveFiles();
             driver.quit();
         } catch (Exception ex) {
-            Logger.getLogger(YoutubeDownloaderTest.class.getName()).log(Logger.Level.ERROR, "Something wrong... Try again!");
+            Logger.getLogger(YoutubeDownloader.class.getName()).log(Logger.Level.ERROR, "Something wrong... Try again!");
             driver.quit();
         }
     }
 
-    private List<String> getSongLinks(YoutubePage youtubePage) {
-        List<String> songUrls = youtubePage.getUrl(YOUTUBE_URL);
-        Logger.getLogger(YoutubeDownloaderTest.class.getName()).log(Logger.Level.INFO, "Total album songs: " + songUrls.size());
+    private List<String> getSongLinks(YoutubePage youtubePage, String url) {
+        List<String> songUrls = youtubePage.getUrl(url);
+        Logger.getLogger(YoutubeDownloader.class.getName()).log(Logger.Level.INFO, "Total album songs: " + songUrls.size());
         /*for (String songUrl : songUrls) {
             System.out.println(songUrl);
         }*/

@@ -1,5 +1,6 @@
 package org.ivione93;
 
+import org.jboss.logging.Logger;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -11,8 +12,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ConverterPage {
 
@@ -35,7 +34,7 @@ public class ConverterPage {
                     .ignoring(NoSuchElementException.class, TimeoutException.class)
                     .until((WebDriver $) -> false);
         } catch (Throwable ex) {
-            Logger.getLogger(ConverterPage.class.getName()).log(Level.FINEST, null, ex);
+            Logger.getLogger(ConverterPage.class.getName()).log(Logger.Level.ERROR, null, ex);
         }
     };
 }
