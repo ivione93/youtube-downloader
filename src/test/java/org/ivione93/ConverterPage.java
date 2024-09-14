@@ -25,13 +25,13 @@ public class ConverterPage {
     }
 
     protected Function<WebDriver, Wait<WebDriver>> waitGenerator = (WebDriver aDriver) -> new FluentWait<>(aDriver)
-            .withTimeout(Duration.ofSeconds(10))
-            .pollingEvery(Duration.of(10, ChronoUnit.MILLIS))
+            .withTimeout(Duration.ofSeconds(30))
+            .pollingEvery(Duration.of(30, ChronoUnit.MILLIS))
             .ignoring(NoSuchElementException.class, TimeoutException.class);
 
     protected Consumer<WebDriver> waitABit = (WebDriver aDriver) -> {
         try {
-            (new WebDriverWait(aDriver, Duration.ofSeconds(1)))
+            (new WebDriverWait(aDriver, Duration.ofSeconds(2)))
                     .ignoring(NoSuchElementException.class, TimeoutException.class)
                     .until((WebDriver $) -> false);
         } catch (Throwable ex) {
